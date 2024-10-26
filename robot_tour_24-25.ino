@@ -39,6 +39,7 @@ const float K_I = 0.000005;
 const float K_D = 250;
 const int DELAY = 50;
 const float L2R_RATIO = 0.7;
+const float TICKS_PER_CM = 1;
 
 // Pulse constants
 const int PULSE_POWER = 255;
@@ -182,9 +183,9 @@ void move_PID(int left_direction, int right_direction, int avg_power, int total_
   retro_pulse(-left_direction, -right_direction);  
 }
 
-void forward(int ticks)
+void forward(int cm)
 {
-  move_PID(1, 1, 100, ticks);
+  move_PID(1, 1, 100, (int)(TICKS_PER_CM*cm));
   delay(200);
 }
 
