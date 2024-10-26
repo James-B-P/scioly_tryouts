@@ -92,8 +92,8 @@ class Motor
 };
 
 // Motor setup
-Motor left_motor(MLA, MLB, MLE, INL);
-Motor right_motor(MRA, MRB, MRE, INR);
+Motor left_motor(MLA, MLB, MLE);
+Motor right_motor(MRA, MRB, MRE);
 
 // Tracks wheel encoder ticks
 void incL()
@@ -213,6 +213,8 @@ void rotate_to(int new_direction)
   robot_direction += dir_change;
 }
 
+volatile bool paused = true;
+
 void startProgram()
 {
   paused = false;
@@ -221,7 +223,6 @@ void startProgram()
 void setup()
 {
   // General setup and wait for button press to start program
-  volatile bool paused = true;
   Serial.begin(9600);
   attachInterrupt(digitalPinToInterrupt(INL), incL, RISING);
   attachInterrupt(digitalPinToInterrupt(INR), incR, RISING);
@@ -229,7 +230,6 @@ void setup()
   while (paused){}
 
   delay(1000);
-
   int x_move;
   int y_move;
 
